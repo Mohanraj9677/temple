@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('checking','App\Http\Controllers\PoosarifamilytreeController@checking');
+
+Route::get('mail','App\Http\Controllers\PoosarifamilytreeController@mail');

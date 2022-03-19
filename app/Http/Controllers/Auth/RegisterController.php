@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\MailPage;
 use Mail;
 
 class RegisterController extends Controller
@@ -65,12 +66,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-       
-           $email=$data['email'];
-        Mail::raw($data['name'].' '.$data['email'].' '.$data['role'],function($message){
-            $message->from('srikanth240620@gmail.com');
-            $message->to('srikanth240620@gmail.com')->subject('DEMO');
-         });
+  
+        $details  = [];
+        $details['name'] = $data['name'];
+        $details['email'] = $data['email'];
+        $details['role'] = $data['role'];
+             Mail::to('srikanth240620@gmail.com')->send(new MailPage ($details));
           return User::create([
             'role' => $data['role'],
             'name' => $data['name'],
